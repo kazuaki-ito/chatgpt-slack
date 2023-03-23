@@ -11,10 +11,10 @@ const openAiApi = new OpenAIApi(new Configuration({
 class SlackController {
   public async onMessage(event: any): Promise<void> {
     if (event.bot_id) return
-    console.log(`onMessage event: user ${event.user} in channel ${event.channel} says ${event.text}`)
+    console.log(`onMessage event: user ${event.user} in channel ${event.channel} says ${event.text}, model=${env.chatgptModel}`)
     try {
       const completion = await openAiApi.createChatCompletion({
-        model: 'gpt-3.5-turbo',
+        model: env.chatgptModel!,
         messages: [{
           role: ChatCompletionRequestMessageRoleEnum.User,
           content: event.text

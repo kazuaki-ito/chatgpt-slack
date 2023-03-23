@@ -33,7 +33,9 @@ class SlackController {
       console.error(e)
     }
     await web.chat.postMessage({
-      text: 'なに言ってんの？わかんねーよ',
+      text: `<@${event.user}>\n` +
+        '> ' + event.text +
+        'なに言ってんの？わかんねーよ',
       channel: event.channel
     })
   }

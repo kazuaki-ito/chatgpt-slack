@@ -9,6 +9,7 @@
   "private": false,
   "scripts": {
     "build": "tsc",
+    "start:local": "env-cmd -f .env.local node src/app.js",
     "watch": "env-cmd -f .env.local tsc -w",
     "live": "env-cmd -f .env.local nodemon --watch 'src/**/*.ts' -e ts --exec ts-node src/app.ts"
   },

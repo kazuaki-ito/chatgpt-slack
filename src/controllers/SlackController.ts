@@ -23,7 +23,7 @@ class SlackController {
       if (completion.data.choices.length > 0 && completion.data.choices[0].message?.content) {
         await web.chat.postMessage({
           text: `<@${event.user}>\n` +
-            '> ' + event.text +
+            '> ' + event.text + '\n' +
             completion.data.choices[0].message!.content,
           channel: event.channel
         })
@@ -34,7 +34,7 @@ class SlackController {
     }
     await web.chat.postMessage({
       text: `<@${event.user}>\n` +
-        '> ' + event.text +
+        '> ' + event.text + '\n' +
         'なに言ってんの？わかんねーよ',
       channel: event.channel
     })

@@ -35,7 +35,7 @@ class SlackController {
     await web.chat.postMessage({
       text: `<@${event.user}>\n` +
         '> ' + event.text + '\n' +
-        'なに言ってんの？わかんねーよ',
+        'ごめんなさい、答えられません。',
       channel: event.channel
     })
   }

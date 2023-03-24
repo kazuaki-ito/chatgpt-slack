@@ -1,30 +1,21 @@
 import {WebClient} from '@slack/web-api'
 import env from "../env"
-import {OpenAIApi, Configuration, ChatCompletionRequestMessageRoleEnum} from 'openai'
+import openAIClient from "../helpers/OpenAIClient"
 
 const web = new WebClient(env.slackBotToken)
-
-const openAiApi = new OpenAIApi(new Configuration({
-  apiKey: env.chatgptApiKey
-}))
 
 class SlackController {
   public async onMessage(event: any): Promise<void> {
     if (event.bot_id) return
     console.log(`onMessage event: user ${event.user} in channel ${event.channel} says ${event.text}, model=${env.chatgptModel}`)
     try {
-      const completion = await openAiApi.createChatCompletion({
-        model: env.chatgptModel!,
-        messages: [{
-          role: ChatCompletionRequestMessageRoleEnum.User,
-          content: event.text
-        }]
-      })
-      if (completion.data.choices.length > 0 && completion.data.choices[0].message?.content) {
+
+      const result = await openAIClient.createChatCompletion(event.text)
+      if (result) {
         await web.chat.postMessage({
           text: `<@${event.user}>\n` +
             '> ' + event.text + '\n' +
-            completion.data.choices[0].message!.content,
+            result,
           channel: event.channel
         })
         return

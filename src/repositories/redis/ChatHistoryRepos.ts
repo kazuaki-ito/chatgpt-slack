@@ -12,7 +12,7 @@ class ChatHistoryRepos {
   private isDestroyed = false
 
   constructor() {
-    this.redis = new IORedis.Redis(env.redisPort, env.redisHost)
+    this.redis = new IORedis.Redis(env.redisUrl)
   }
 
   public async store(key: string, chatHistory: ChatHistory[]) {

@@ -11,7 +11,7 @@ class LineController {
 
     try {
       if (event.type == 'message' && event.message?.type === 'text') {
-        const result = await openAIClient.createChatCompletion(event.message.text)
+        const result = await openAIClient.question(event.user, event.message.text)
         if (result) {
           await client.replyMessage(event.replyToken, {
             type: 'text',

@@ -9,8 +9,7 @@ class SlackController {
     if (event.bot_id) return
     console.log(`onMessage event: user ${event.user} in channel ${event.channel} says ${event.text}, model=${env.chatgptModel}`)
     try {
-
-      const result = await openAIClient.createChatCompletion(event.text)
+      const result = await openAIClient.question(event.user, event.text)
       if (result) {
         await web.chat.postMessage({
           text: `<@${event.user}>\n` +

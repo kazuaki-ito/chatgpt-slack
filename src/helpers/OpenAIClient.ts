@@ -6,7 +6,7 @@ const openAiApi = new OpenAIApi(new Configuration({
   apiKey: env.chatgptApiKey
 }))
 
-export const CONTENT_LIMIT = 40
+export const CONTENT_LIMIT = 20
 
 class OpenAIClient {
   public garbageCollect(histories: ChatHistory[]): ChatHistory[] {
@@ -45,7 +45,9 @@ class OpenAIClient {
   private async createChatCompletion(messages: ChatCompletionRequestMessage[]): Promise<string | undefined> {
     const completion = await openAiApi.createChatCompletion({
       model: env.chatgptModel!,
-      messages
+      messages,
+      top_p: 0.5,
+      frequency_penalty: 0.5,
     })
     if (completion.data.choices.length > 0 && completion.data.choices[0].message?.content) {
       return completion.data.choices[0].message!.content

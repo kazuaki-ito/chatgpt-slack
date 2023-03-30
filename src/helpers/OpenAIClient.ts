@@ -48,6 +48,7 @@ class OpenAIClient {
       messages,
       top_p: 0.5,
       frequency_penalty: 0.5,
+      max_tokens: 1024
     })
     if (completion.data.choices.length > 0 && completion.data.choices[0].message?.content) {
       return completion.data.choices[0].message!.content

@@ -6,7 +6,7 @@ const openAiApi = new OpenAIApi(new Configuration({
   apiKey: env.chatgptApiKey
 }))
 
-export const CONTENT_LIMIT = 20
+export const CONTENT_LIMIT = 10
 
 class OpenAIClient {
   public garbageCollect(histories: ChatHistory[]): ChatHistory[] {
@@ -48,7 +48,7 @@ class OpenAIClient {
       messages,
       top_p: 0.5,
       frequency_penalty: 0.5,
-      max_tokens: 1024
+      max_tokens: 512
     })
     if (completion.data.choices.length > 0 && completion.data.choices[0].message?.content) {
       return completion.data.choices[0].message!.content
